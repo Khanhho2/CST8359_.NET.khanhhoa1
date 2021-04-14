@@ -1,0 +1,7 @@
+﻿@model DateTime
+
+<div class="form-group">
+    @Html.LabelFor(m => m)
+    @Html.TextBoxFor(m => m, Model == DateTime.MinValue ? "" : "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+    @Html.ValidationMessageFor(m => m, "", new { @class = "text-danger" })
+</div>

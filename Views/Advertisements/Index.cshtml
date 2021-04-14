@@ -1,0 +1,44 @@
+@model Community
+@{
+    ViewBag.Title = "Index";
+}
+<h1>Show ads for community @Model.Title</h1>
+
+<p>
+    @Html.ActionLink("Upload New", "Create", "Advertisements", new { id = Model.ID })
+</p>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Communities")
+</div>
+
+@if (Model.Advertisements.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    File Name
+                </th>
+                <th>
+                    Image
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var adv in Model.Advertisements)
+            {
+                <tr>
+                    <td>@adv.FileName</td>
+                    <td><img src="@adv.Url" style="max-width:400px;max-height:400px" /></td>
+                    <td>@Html.ActionLink("Delete", "Delete", "Advertisements", new { id = adv.ID })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>There are no files to display.</p>
+}

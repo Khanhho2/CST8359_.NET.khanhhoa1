@@ -1,0 +1,46 @@
+﻿@model A1.ViewModels.StudentMembershipsViewModel
+
+@{
+    ViewBag.Title = "Edit Memberships";
+}
+<h1>Edit</h1>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Full Name
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Student.FullName
+        </dd>
+    </dl>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <table id="membershipsTable">
+            @foreach (var community in Model.Communities)
+            {
+                <tr>
+                    <td>@community.Title</td>
+                    <td>
+                        @if (Model.Student.Membership.Any(m => m.CommunityID == community.ID))
+                        {
+                            @Html.ActionLink("Unregister", "RemoveMemberships", "Students", new { studentId = Model.Student.ID, communityId = community.ID })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Register", "AddMemberships", "Students", new { studentId = Model.Student.ID, communityId = community.ID })
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

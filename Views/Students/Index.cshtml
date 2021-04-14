@@ -1,0 +1,68 @@
+﻿@model A1.ViewModels.StudentsViewModel
+
+@{
+    ViewData["Title"] = "Students";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Last Name
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Enrollment Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Students)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnrollmentDate)
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="EditMemberships" asp-route-id="@item.ID">Edit Memberships</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{ if (Model.isSelected != null)
+    {
+        <h3>
+            Member of the following communities
+        </h3>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+            </tr>
+            @{ foreach (var membership in Model.isSelected.Membership)
+                {
+                    <tr><td>@membership.Community.Title </td></tr>
+                }
+            }
+        </table>
+    }
+}
